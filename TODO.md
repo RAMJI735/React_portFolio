@@ -1,0 +1,4 @@
+- [x] Add 'fade-up' class to the contact section in Home.jsx
+- [x] Import useRef in Home.jsx to reference the scrollable div
+- [x] Refactor the scroll logic to use IntersectionObserver with the scrollable div as root
+- [x] Update the useEffect to set up IntersectionObserver instead of scroll listener

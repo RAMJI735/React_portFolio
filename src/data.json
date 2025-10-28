@@ -1,0 +1,13 @@
+{
+  "name": "My Website",
+  "navbar": [
+    { "text": "Home", "link": "/" },
+    { "text": "About", "link": "/about" },
+    { "text": "Contact", "link": "/contact" }
+  ],
+  "content": {
+    "home": "Welcome to our website! This is the home page.",
+    "about": "This is the about page. Here you can learn more about us.",
+    "contact": "Contact us at contact@example.com."
+  }
+}
