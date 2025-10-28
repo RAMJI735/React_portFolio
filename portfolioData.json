@@ -22,7 +22,7 @@
     },
     "about": {
     "title": "About Me",
-     "content": "Hi, I'm Deepanshu Srivastava, a dedicated Full-Stack Developer from Lucknow with a passion for creating innovative web solutions that solve real-world problems.\nAs a BCA graduate specializing in MERN stack development, I bring over a year of professional experience building scalable, efficient, and user-centric applications.\nCurrently working as a Trainee Developer at Gahmar Admark Solution Private Limited, I architect robust APIs and craft responsive interfaces using Next.js, Node.js, and MongoDB.\nMy journey in software development has been shaped by diverse experiences at Hanumant Technology and Xzect Labs, where I've built everything from AI-powered chatbots to complex ticketing systems and real-time email platforms.",
+     "content": "Hi, I'm Deepanshu Srivastava, a dedicated Full-Stack Developer from Lucknow with a passion for creating innovative web solutions that solve real-world problems.\nAs a BCA graduate specializing in MERN stack development, I bring over a year of professional experience building scalable, efficient, and user-centric applications.\nCurrently working as a Full Stack Developer at Gahmar Admark Solution Private Limited, I architect robust APIs and craft responsive interfaces using Next.js, Node.js, and MongoDB.\nMy journey in software development has been shaped by diverse experiences at Hanumant Technology and Xzect Labs, where I've built everything from AI-powered chatbots to complex ticketing systems and real-time email platforms.",
      "imageside":{
          "content":"I don't just write code—I create solutions. Whether it's developing a real-time email module with Socket.io, integrating Razorpay payment gateways for seamless transactions, or building a coupon redemption system with membership logic, I thrive on transforming complex requirements into elegant, functional applications.",
          "position":"Full stack Developer"
@@ -123,7 +123,26 @@
         "Optimized performance and page experience",
         "Also develop Api using Node.js & MongoDB"
       ]
+    },    {
+      "role": "Full Stack Developer Intern",
+      "year": "September 2024 - March 2025",
+      "company": "Hanumant Technologies Private Limited, Lucknow",
+      "points": [
+        "Built UI components using React.js",
+        "learn about Node.js & MongoDB , HTML & CSS ,JAVA SCRIPT",
+        "Build a NoteBook Application using React.js"
+      ]
+    },
+    {
+      "role": "Full Stack Developer Intern",
+      "year": "June 2024 - August 2024",
+      "company": "Xzect Labs Private Limited, Remote",
+      "points": [
+        "Built UI components using Next.js & MUI",
+        "Develop a ChatBot using AI"
+      ]
     }
+
   ]
 }
 

@@ -4,7 +4,7 @@ export const mailService = {
   post: async (data) => {
     try {
       const response = await axios.post(
-        "http://localhost:4000/mail-send",
+        `https://port-folio-backend-two.vercel.app/mail-send`,
         data,
         {
           headers: {
