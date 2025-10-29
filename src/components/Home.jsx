@@ -13,7 +13,7 @@ import data from "../../portfolioData.json";
 import ServiceForm from "./Service";
 import Contact from "./Contact";
 import Sidebar from "./Navbar";
-import resumefile from "../assets/resume.docx"
+
 
 
 function Home() {
@@ -251,7 +251,7 @@ function Home() {
 
   {/* Download Button */}
   <a
-    href={resumefile}
+    href="/resume.docx"
     download="Deepanshu-Resume.docx"
     className="mt-6 inline-block bg-blue-500 hover:bg-blue-600 transition text-white px-6 py-3 rounded-md"
   >
