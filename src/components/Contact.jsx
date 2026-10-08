@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
+import { contactApi } from '../services/api';
 import { mailService } from '../../services/mailService';
+import { usePortfolio } from '../context/PortfolioContext';
 import { toast } from 'react-toastify';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
-import data from "../../portfolioData.json";
-import { FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa';
+import defaultData from "../../portfolioData.json";
+import { FaFacebookF, FaInstagram, FaTwitter, FaLinkedinIn, FaGithub, FaGlobe } from 'react-icons/fa';
+import { FiMail, FiMapPin, FiPhone, FiSend } from 'react-icons/fi';
 
 function Contact() {
-  const {sections}= data;
-  const [isloading,setIsloading]= useState(false);
+  const { portfolio } = usePortfolio();
+  const contactData = portfolio?.sections?.contact || defaultData?.sections?.contact || {};
+
+  const [isloading, setIsloading] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -20,34 +25,48 @@ function Contact() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!formData.name?.trim() || !formData.email?.trim() || !formData.message?.trim()) {
+      toast.warning("Please fill in your name, email, and message.");
+      return;
+    }
+
+    setIsloading(true);
     try {
-      setIsloading(true);
-         e.preventDefault();
-    console.log(formData);
-    // alert("Message sent!");
-     const res = await mailService.post(formData);
-    if (res.success == true) {
-      toast.success(res.message);
-      setFormData({ name: '', email: '', subject: '', message: '' });
-    }
-    else {
-      toast.error(res.message);
-    }
+      console.log("Submitting contact message to API:", formData);
+      // Primary: calls /api/contact which invokes handleContactSubmit
+      let res;
+      try {
+        res = await contactApi.send(formData);
+      } catch (err) {
+        console.warn("/api/contact failed, trying fallback /mail-send...", err);
+        res = await mailService.post(formData);
+      }
+
+      if (res && (res.success === true || res.status === 200)) {
+        toast.success(res.message || "Message sent successfully!");
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        toast.error(res?.message || "Failed to send message. Please try again.");
+      }
     } catch (error) {
-      throw error;
+      console.error("Submission failed:", error);
+      toast.error(error?.response?.data?.message || "Failed to send message. Please try again.");
     } finally {
       setIsloading(false);
     }
- 
   };
 
-
-  const socialIcons ={
-    FaInstagram:<FaInstagram/>,
-    FaTwitter:<FaTwitter/>,
-    FaFacebookF:<FaFacebookF/>
-  }
+  const socialIcons = {
+    FaInstagram: <FaInstagram />,
+    FaTwitter: <FaTwitter />,
+    FaFacebookF: <FaFacebookF />,
+    FaLinkedinIn: <FaLinkedinIn />,
+    FaGithub: <FaGithub />,
+    FaGlobe: <FaGlobe />
+  };
 
 
 
@@ -62,26 +81,38 @@ function Contact() {
         {/* Contact Info */}
         <div className="flex flex-col justify-between">
           <div>
-            <h2 className="text-2xl font-semibold mb-4">{sections.contact.content}</h2>
-            <p className="text-gray-700 mb-2">📍{sections.contact.address}</p>
-            <p className="text-gray-700 mb-2">📞 {sections.contact.number}</p>
-            <p className="text-gray-700 mb-2">✉️ {sections.contact.email}</p>
+            <h2 className="text-2xl font-semibold mb-4 text-gray-900">{contactData?.content || "Let's connect!"}</h2>
+            {contactData?.address && (
+              <p className="text-gray-700 mb-2 flex items-center gap-2">
+                <FiMapPin className="text-emerald-500" /> {contactData.address}
+              </p>
+            )}
+            {contactData?.number && (
+              <p className="text-gray-700 mb-2 flex items-center gap-2">
+                <FiPhone className="text-emerald-500" /> {contactData.number}
+              </p>
+            )}
+            {contactData?.email && (
+              <p className="text-gray-700 mb-2 flex items-center gap-2">
+                <FiMail className="text-emerald-500" /> {contactData.email}
+              </p>
+            )}
           </div>
           <div className="mt-6">
-            <h2 className="text-2xl font-semibold mb-4">Follow Us</h2>
+            <h2 className="text-2xl font-semibold mb-4 text-gray-900">Follow Us</h2>
             <div className="flex gap-4">
-              {sections.contact.social.map((social, index) => (
+              {(contactData?.social || []).map((social, index) => (
                 <a
                   key={index}
                   href={social.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-600 hover:underline"
+                  className="text-blue-600 hover:text-blue-800 transition p-2 bg-gray-100 hover:bg-gray-200 rounded-full text-lg"
+                  aria-label={social.platform || "Social Link"}
                 >
-                  {socialIcons[social.icon]}
+                  {socialIcons[social.icon] || <FaGlobe />}
                 </a>
               ))}
-          
             </div>
           </div>
         </div>
