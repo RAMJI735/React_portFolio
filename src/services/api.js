@@ -1,7 +1,8 @@
 import axios from "axios";
 
-// Base URL: use environment variable if provided, otherwise default to relative path (Vite proxy) or localhost
-const BASE_URL = import.meta.env.VITE_API_URL || "";
+// Base URL: prioritize VITE_BACKEND or VITE_API_URL, sanitize trailing slashes
+const rawBase = import.meta.env.VITE_BACKEND || import.meta.env.VITE_API_URL || "https://port-folio-backend-two.vercel.app";
+const BASE_URL = (rawBase || "").replace(/\/+$/, "");
 
 export const api = axios.create({
   baseURL: BASE_URL,

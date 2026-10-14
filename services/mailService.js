@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const BACKEND_BASE = import.meta.env.VITE_BACKEND || import.meta.env.VITE_API_URL || "http://localhost:4000";
+const rawUrl = import.meta.env.VITE_BACKEND || import.meta.env.VITE_API_URL || "https://port-folio-backend-two.vercel.app";
+const BACKEND_BASE = (rawUrl || "").replace(/\/+$/, "");
 
 export const mailService = {
   post: async (data) => {
